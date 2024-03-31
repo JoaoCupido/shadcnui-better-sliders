@@ -828,7 +828,7 @@ export default function Home() {
                   })}
                 </>
             }
-            {mainSlider[0].value[0] === 8 &&
+            {mainSlider[0].value[0] === mainSlider[0].max &&
                 <>
                   <h1 className="text-center scroll-m-20 text-6xl font-extrabold tracking-tight lg:text-7xl">
                     Thank you!
@@ -838,6 +838,11 @@ export default function Home() {
                       Helpful Links:
                     </p>
                     <ul className="my-6 list-disc [&>li]:mt-2">
+                      <li>
+                        <a href="https://www.radix-ui.com/primitives/docs/components/slider" target="_blank">
+                          <Button variant="link">https://www.radix-ui.com/primitives/docs/components/slider</Button>
+                        </a>
+                      </li>
                       <li>
                         <a href="https://github.com/shadcn-ui/ui/issues/885" target="_blank">
                           <Button variant="link">https://github.com/shadcn-ui/ui/issues/885</Button>

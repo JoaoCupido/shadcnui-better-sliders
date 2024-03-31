@@ -41,7 +41,7 @@ const SliderNew = React.forwardRef<
                     if (value === min || value === max) {
                         return null;
                     }
-                    const positionPercentage = (value - min) / (max - min) * 100;
+                    const positionPercentage = ((value - min) / (max - min)) * 100;
                     const adjustedPosition = 50 + (positionPercentage - 50) * 0.96;
                     return (
                         <div
@@ -69,8 +69,9 @@ const SliderNew = React.forwardRef<
             {props.value?.map((numberStep, index) => (
                 <SliderPrimitive.Thumb
                     key={index}
-                    className="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                >
+                    className={cn(
+                        "block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                    )}>
                     {hoveredThumbIndex && formatLabel && (
                         <div
                             className={cn(
