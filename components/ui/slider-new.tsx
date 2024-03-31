@@ -11,7 +11,7 @@ interface SliderNewProps extends React.ComponentPropsWithoutRef<typeof SliderPri
     formatLabelSide?: string;
 }
 
-const Slider = React.forwardRef<
+const SliderNew = React.forwardRef<
     React.ElementRef<typeof SliderPrimitive.Root>,
     SliderNewProps
 >(({ className, showSteps = 'none', formatLabel, formatLabelSide = 'top', ...props }, ref) => {
@@ -135,6 +135,6 @@ const Slider = React.forwardRef<
     )
 })
 
-Slider.displayName = SliderPrimitive.Root.displayName
+SliderNew.displayName = SliderPrimitive.Root.displayName
 
-export { Slider }
+export { SliderNew }
