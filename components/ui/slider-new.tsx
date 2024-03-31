@@ -21,7 +21,7 @@ const SliderNew = React.forwardRef<
         <SliderPrimitive.Root
             ref={ref}
             className={cn(
-                "relative flex touch-none select-none",
+                "relative flex touch-none select-none cursor-pointer data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
                 "data-[orientation='horizontal']:w-full data-[orientation='horizontal']:items-center",
                 "data-[orientation='vertical']:h-full data-[orientation='vertical']:justify-center",
                 className
