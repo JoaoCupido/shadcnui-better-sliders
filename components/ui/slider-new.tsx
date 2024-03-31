@@ -1,5 +1,8 @@
+"use client"
+
 import * as React from "react"
 import * as SliderPrimitive from "@radix-ui/react-slider"
+
 import { cn } from "@/lib/utils"
 
 interface SliderNewProps extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
@@ -8,14 +11,47 @@ interface SliderNewProps extends React.ComponentPropsWithoutRef<typeof SliderPri
     formatLabelSide?: string;
 }
 
-const SliderNew = React.forwardRef<
+const Slider = React.forwardRef<
     React.ElementRef<typeof SliderPrimitive.Root>,
     SliderNewProps
 >(({ className, showSteps = 'none', formatLabel, formatLabelSide = 'top', ...props }, ref) => {
-    const { min = 0, max = 100, step = 1, orientation } = props;
+    const { min = 0, max = 100, step = 1, orientation, value, defaultValue, onValueChange } = props;
     const [hoveredThumbIndex, setHoveredThumbIndex] = React.useState<boolean>(false);
     const numberOfSteps = Math.floor((max - min) / step);
     const stepLines = Array.from({ length: numberOfSteps }, (_, index) => index * step + min);
+
+    const initialValue = Array.isArray(value) ? value : (Array.isArray(defaultValue) ? defaultValue : [min, max]);
+    const [localValues, setLocalValues] = React.useState<number[]>(initialValue);
+
+    React.useEffect(() => {
+        if (!isEqual(value, localValues)) {
+            setLocalValues(Array.isArray(value) ? value : (Array.isArray(defaultValue) ? defaultValue : [min, max]));
+        }
+    }, [min, max, value]);
+
+    const handleValueChange = (newValues: number[]) => {
+        setLocalValues(newValues);
+        if (onValueChange) {
+            onValueChange(newValues);
+        }
+    };
+
+    function isEqual(array1: number[] | undefined, array2: number[] | undefined) {
+        array1 = array1 ?? [];
+        array2 = array2 ?? [];
+
+        if (array1.length !== array2.length) {
+            return false;
+        }
+
+        for (let i = 0; i < array1.length; i++) {
+            if (array1[i] !== array2[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
     return (
         <SliderPrimitive.Root
@@ -26,6 +62,11 @@ const SliderNew = React.forwardRef<
                 "data-[orientation='vertical']:h-full data-[orientation='vertical']:justify-center",
                 className
             )}
+            min={min}
+            max={max}
+            step={step}
+            value={localValues}
+            onValueChange={(value) => handleValueChange(value)}
             {...props}
             onFocus={() => setHoveredThumbIndex(true)}
             onBlur={() => setHoveredThumbIndex(false)}
@@ -69,7 +110,7 @@ const SliderNew = React.forwardRef<
                 })}
 
             </SliderPrimitive.Track>
-            {props.value?.map((numberStep, index) => (
+            {localValues.map((numberStep, index) => (
                 <SliderPrimitive.Thumb
                     key={index}
                     className={cn(
@@ -94,6 +135,6 @@ const SliderNew = React.forwardRef<
     )
 })
 
-SliderNew.displayName = SliderPrimitive.Root.displayName
+Slider.displayName = SliderPrimitive.Root.displayName
 
-export { SliderNew }
+export { Slider }
