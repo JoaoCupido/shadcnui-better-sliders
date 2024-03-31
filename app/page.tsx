@@ -863,6 +863,11 @@ export default function Home() {
                           <Button variant="link">https://github.com/shadcn-ui/ui/pull/1965</Button>
                         </a>
                       </li>
+                      <li>
+                        <a href="https://github.com/shadcn-ui/ui/pull/2586" target="_blank">
+                          <Button variant="link">https://github.com/shadcn-ui/ui/pull/2586</Button>
+                        </a>
+                      </li>
                     </ul>
 
                     <a href="https://github.com/JoaoCupido/shadcnui-better-sliders/blob/master/components/ui/slider-new.tsx" target="_blank">

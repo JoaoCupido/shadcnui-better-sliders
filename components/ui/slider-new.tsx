@@ -21,8 +21,9 @@ const SliderNew = React.forwardRef<
         <SliderPrimitive.Root
             ref={ref}
             className={cn(
-                {'flex-col h-full': orientation === 'vertical', 'w-full': orientation !== 'vertical'},
-                "relative flex touch-none select-none items-center cursor-pointer data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+                "relative flex touch-none select-none",
+                "data-[orientation='horizontal']:w-full data-[orientation='horizontal']:items-center",
+                "data-[orientation='vertical']:h-full data-[orientation='vertical']:justify-center",
                 className
             )}
             {...props}
@@ -30,12 +31,14 @@ const SliderNew = React.forwardRef<
             onBlur={() => setHoveredThumbIndex(false)}
         >
             <SliderPrimitive.Track className={cn(
-                {'h-full w-2': orientation === 'vertical', 'w-full h-2': orientation !== 'vertical'},
-                "relative grow overflow-hidden rounded-full bg-secondary"
+                "relative grow overflow-hidden rounded-full bg-secondary",
+                "data-[orientation='horizontal']:h-2 data-[orientation='horizontal']:w-full",
+                "data-[orientation='vertical']:h-full data-[orientation='vertical']:w-2"
             )}>
                 <SliderPrimitive.Range className={cn(
-                    {'h-full': orientation !== 'vertical', 'w-full': orientation === 'vertical'},
-                    "absolute bg-primary"
+                    "absolute bg-primary",
+                    "data-[orientation='horizontal']:h-full",
+                    "data-[orientation='vertical']:w-full"
                 )} />
                 {showSteps !== undefined && showSteps !== 'none' && stepLines.map((value, index) => {
                     if (value === min || value === max) {
